@@ -1,4 +1,16 @@
-package PACKAGE_NAME;
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
+import service.MessageService;
+
+import java.io.IOException;
 
 public class MessageServer {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Server server = ServerBuilder.forPort(8880)
+                .addService(new MessageService())
+                .build();
+        server.start();
+        System.out.println("Serveur gRPC en cours d'exécution sur le port "+server.getPort());
+        server.awaitTermination();
+    }
 }
